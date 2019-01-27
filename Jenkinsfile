@@ -22,7 +22,8 @@ pipeline {
     }
     stage('Deliver') {
       steps {
-        sh 'node server.js &'
+        sh '''node server.js &
+echo $! > .pidfile'''
         input 'Finished using the web site? (Click "Proceed" to continue)'
         sh 'kill $(cat .pidfile)'
       }
