@@ -11,6 +11,7 @@ pipeline {
       steps {
         sh 'npm config set unsafe-perm true'
         sh 'npm install'
+        sh 'npm install express --save'
       }
     }
     stage('Test') {
