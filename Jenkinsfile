@@ -2,7 +2,7 @@ pipeline {
   agent {
     docker {
       args '-p 3000:3000'
-      image 'rhnylyukh/slave4'
+      image 'rhnylyukh/slave5'
     }
 
   }
@@ -39,6 +39,11 @@ pipeline {
 echo $! > .pidfile'''
         input 'Finished using the web site? (Click "Proceed" to continue)'
         sh 'kill $(cat .pidfile)'
+      }
+    }
+    stage('v') {
+      steps {
+        sh 'npm publish'
       }
     }
   }
