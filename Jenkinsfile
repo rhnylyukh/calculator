@@ -9,8 +9,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh '''npm cache verify --force
-npm rebuild
+        sh '''npm login
 npm install'''
       }
     }
