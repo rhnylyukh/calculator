@@ -30,11 +30,6 @@ echo $! > .pidfile'''
             sh 'kill $(cat .pidfile)'
           }
         }
-        stage('publish') {
-          steps {
-            sh 'npm publish'
-          }
-        }
       }
     }
   }
