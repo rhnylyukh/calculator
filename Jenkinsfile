@@ -8,10 +8,18 @@ pipeline {
   }
   stages {
     stage('Build') {
+      steps {
+        sh 'npm install'
+      }
+    }
+    stage('Test') {
       parallel {
-        stage('Build') {
+        stage('Test') {
+          environment {
+            CI = 'true'
+          }
           steps {
-            sh 'npm install'
+            sh 'npm test'
           }
         }
         stage('Static code analysis') {
@@ -23,14 +31,6 @@ pipeline {
   -Dsonar.login=d52870b6c2a71840168f980566a852f8ffdb9e7c'''
           }
         }
-      }
-    }
-    stage('Test') {
-      environment {
-        CI = 'true'
-      }
-      steps {
-        sh 'npm test'
       }
     }
     stage('Deliver') {
