@@ -33,7 +33,7 @@ pipeline {
         }
       }
     }
-    stage('Deliver') {
+    stage('Deliver to dev') {
       steps {
         sh '''node server.js &
 echo $! > .pidfile'''
