@@ -31,8 +31,5 @@
     "mocha-junit-reporter": "^1.18.0",
     "mocha-multi-reporters": "^1.1.7",
     "supertest": "^3.1.0"
-  },
-    "publishConfig": {
-    "registry": "http://35.203.128.99:8081/repository/npm-repo/"
   }
 }
