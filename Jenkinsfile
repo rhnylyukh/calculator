@@ -9,8 +9,8 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh '''npm install
-npm install express --save'''
+        sh 'npm config set unsafe-perm true'
+        sh 'npm install'
       }
     }
     stage('Test') {
