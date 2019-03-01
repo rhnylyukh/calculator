@@ -2,14 +2,27 @@ pipeline {
   agent {
     docker {
       args '-p 3000:3000'
-      image 'node:6-alpine'
+      image 'rhnylyukh/slave4'
     }
 
   }
   stages {
     stage('Build') {
-      steps {
-        sh 'npm install'
+      parallel {
+        stage('Build') {
+          steps {
+            sh 'npm install'
+          }
+        }
+        stage('Static Code Analysis') {
+          steps {
+            sh '''sonar-scanner \\
+  -Dsonar.projectKey=calc \\
+  -Dsonar.sources=. \\
+  -Dsonar.host.url=http:35.203.128.99:9000 \\
+  -Dsonar.login=d52870b6c2a71840168f980566a852f8ffdb9e7c'''
+          }
+        }
       }
     }
     stage('Test') {
