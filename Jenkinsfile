@@ -10,7 +10,7 @@ pipeline {
     stage('Build') {
       steps {
         sh 'npm install'
-        }
+      }
     }
     stage('Test') {
       environment {
@@ -21,15 +21,11 @@ pipeline {
       }
     }
     stage('Deliver') {
-      parallel {
-        stage('Deliver') {
-          steps {
-            sh '''node server.js &
+      steps {
+        sh '''node server.js &
 echo $! > .pidfile'''
-            input 'Finished using the web site? (Click "Proceed" to continue)'
-            sh 'kill $(cat .pidfile)'
-          }
-        }
+        input 'Finished using the web site? (Click "Proceed" to continue)'
+        sh 'kill $(cat .pidfile)'
       }
     }
   }
