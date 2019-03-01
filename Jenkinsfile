@@ -2,15 +2,14 @@ pipeline {
   agent {
     docker {
       args '-p 3000:3000'
-      image 'rhnylyukh/slave5'
+      image 'rhnylyukh/slave4'
     }
 
   }
   stages {
     stage('Build') {
       steps {
-        sh '''npm login
-npm install'''
+        sh 'npm install'
       }
     }
     stage('Test') {
@@ -40,11 +39,6 @@ npm install'''
 echo $! > .pidfile'''
         input 'Finished using the web site? (Click "Proceed" to continue)'
         sh 'kill $(cat .pidfile)'
-      }
-    }
-    stage('v') {
-      steps {
-        sh 'npm publish'
       }
     }
   }
