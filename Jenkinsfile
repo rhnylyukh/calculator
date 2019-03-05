@@ -41,5 +41,16 @@ echo $! > .pidfile'''
         sh 'kill $(cat .pidfile)'
       }
     }
+    stage('deploy to prod') {
+      agent {
+        docker {
+          image 'rhnylyukh/ansible-playbook'
+        }
+
+      }
+      steps {
+        sh 'deploy_calculator.yml'
+      }
+    }
   }
 }
