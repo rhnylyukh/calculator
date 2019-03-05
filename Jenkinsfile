@@ -1,13 +1,13 @@
 pipeline {
-  agent {
-    docker {
-      args '-p 3000:3000'
-      image 'rhnylyukh/slave4'
-    }
-
-  }
+  agent none
   stages {
     stage('Build') {
+      agent {
+        docker {
+          image 'rhnylyukh/slave4'
+        }
+
+      }
       steps {
         sh 'npm install'
       }
@@ -15,6 +15,12 @@ pipeline {
     stage('Test') {
       parallel {
         stage('Test') {
+          agent {
+            docker {
+              image 'rhnylyukh/slave4'
+            }
+
+          }
           environment {
             CI = 'true'
           }
@@ -23,6 +29,12 @@ pipeline {
           }
         }
         stage('Static code analysis') {
+          agent {
+            docker {
+              image 'rhnylyukh/slave4'
+            }
+
+          }
           steps {
             sh '''sonar-scanner \\
   -Dsonar.projectKey=calc \\
@@ -34,6 +46,13 @@ pipeline {
       }
     }
     stage('Deliver to dev') {
+      agent {
+        docker {
+          image 'rhnylyukh/slave4'
+          args '-p 3000:3000'
+        }
+
+      }
       steps {
         sh '''node server.js &
 echo $! > .pidfile'''
