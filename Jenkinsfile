@@ -25,6 +25,7 @@ pipeline {
             CI = 'true'
           }
           steps {
+            sh 'npm install'
             sh 'npm test'
           }
         }
@@ -54,6 +55,7 @@ pipeline {
 
       }
       steps {
+        sh 'npm install'
         sh '''node server.js &
 echo $! > .pidfile'''
         input 'Finished using the web site? (Click "Proceed" to continue)'
