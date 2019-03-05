@@ -66,7 +66,6 @@ echo $! > .pidfile'''
       agent {
         docker {
           image 'rhnylyukh/ansible-playbook'
-          args '--rm -it'
         }
 
       }
