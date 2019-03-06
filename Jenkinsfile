@@ -33,6 +33,9 @@ pipeline {
       }
     }
     stage('Deliver to dev') {
+       when {
+        branch 'dev1'
+      }
       steps {
         sh '''node server.js &
 echo $! > .pidfile'''
