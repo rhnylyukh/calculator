@@ -40,17 +40,6 @@ pipeline {
         sh 'kill $(cat .pidfile)'
       }
     }
-    stage('Building image') {
-      agent {
-        docker {
-          image 'rhnylyukh/slave4'
-        }
-
-      }
-      steps {
-        sh 'dockerImage = docker.build registry + ":$BUILD_NUMBER"'
-      }
-    }
     stage('Deploy Image') {
       steps {
         sh 'docker.withRegistry( \'\', registryCredential ) {dockerImage.push() }'
