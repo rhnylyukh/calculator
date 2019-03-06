@@ -1,12 +1,13 @@
 pipeline {
-  agent {
-    docker {
-      image 'rhnylyukh/slave4'
-    }
-
-  }
+  agent none
   stages {
     stage('Build') {
+      agent {
+        docker {
+          image 'rhnylyukh/slave4'
+        }
+
+      }
       steps {
         sh 'npm install'
       }
@@ -14,10 +15,17 @@ pipeline {
     stage('Test') {
       parallel {
         stage('Test') {
+          agent {
+            docker {
+              image 'rhnylyukh/slave4'
+            }
+
+          }
           environment {
             CI = 'true'
           }
           steps {
+            sh 'npm install'
             sh 'npm test'
           }
         }
@@ -33,7 +41,14 @@ pipeline {
       }
     }
     stage('Deliver to dev') {
-       when {
+      agent {
+        docker {
+          image 'rhnylyukh/slave4'
+          args '-p 3000:3000'
+        }
+
+      }
+      when {
         branch 'dev1'
       }
       steps {
@@ -41,18 +56,21 @@ pipeline {
 echo $! > .pidfile'''
         input 'Please, check Your changes on the web http://35.197.102.142:3000 and if all ok Click "Proceed" to continue'
         sh 'kill $(cat .pidfile)'
+        sh '''npm install
+'''
       }
     }
     stage('deploy to prod') {
-       when {
-        branch 'master'
-      }
       agent {
         docker {
           image 'rhnylyukh/ansible-playbook'
         }
+
       }
-           steps {
+      when {
+        branch 'master'
+      }
+      steps {
         sh 'ansible-playbook /ansible/playbooks/deploy_calculator.yml'
       }
     }
