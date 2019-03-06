@@ -58,23 +58,20 @@ pipeline {
         branch 'dev1'
       }
       steps {
+        sh '''npm install
+'''
         sh '''node server.js &
 echo $! > .pidfile'''
         input 'Please, check Your changes on the web http://35.197.102.142:3000 and if all ok Click "Proceed" to continue'
         sh 'kill $(cat .pidfile)'
-        sh '''npm install
-'''
       }
     }
-    stage('deploy to prod') {
+    stage('prod') {
       agent {
         docker {
           image 'rhnylyukh/ansible-playbook'
         }
 
-      }
-      when {
-        branch 'master'
       }
       steps {
         sh 'ansible-playbook /ansible/playbooks/deploy_calculator.yml'
