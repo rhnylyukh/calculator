@@ -43,6 +43,7 @@ pipeline {
     stage('publish') {
       steps {
         sh 'echo \'//35.197.102.142:8081/repository/npm-repo/:_authToken=NpmToken.9021dc1c-5fd8-3b54-af24-39d2d4b58f5e\' > ~/.npmrc'
+        sh 'npm login --registry=http://35.197.102.142:8081/repository/npm-repo/'
         sh 'npm publish'
       }
     }
