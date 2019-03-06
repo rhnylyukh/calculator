@@ -4,7 +4,6 @@ pipeline {
       args '-p 3000:3000'
       image 'rhnylyukh/slave4'
     }
-
   }
   stages {
     stage('Build') {
