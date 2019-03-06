@@ -40,15 +40,13 @@ pipeline {
         sh 'kill $(cat .pidfile)'
       }
     }
-    stage('Deploy Image') {
+    stage('publish') {
       steps {
-        sh 'docker.withRegistry( \'\', registryCredential ) {dockerImage.push() }'
+        sh 'npm publish'
       }
     }
   }
   environment {
-    registry = 'rhnylyukh/calculator_build'
-    registryCredential = 'dockerhub'
-    dockerImage = 'rhnylyukh/slave4'
+    registryCredential = 'nexus'
   }
 }
