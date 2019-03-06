@@ -40,5 +40,20 @@ pipeline {
         sh 'kill $(cat .pidfile)'
       }
     }
+    stage('Building image') {
+      steps {
+        sh 'dockerImage = docker.build registry + ":$BUILD_NUMBER"'
+      }
+    }
+    stage('Deploy Image') {
+      steps {
+        sh 'docker.withRegistry( \'\', registryCredential ) {dockerImage.push() }'
+      }
+    }
+  }
+  environment {
+    registry = 'rhnylyukh/calculator_build'
+    registryCredential = 'dockerhub'
+    dockerImage = ''
   }
 }
