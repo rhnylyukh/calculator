@@ -41,11 +41,8 @@ pipeline {
       }
     }
     stage('publish') {
-      environment {
-        NPM_TOKEN = 'NpmToken.9021dc1c-5fd8-3b54-af24-39d2d4b58f5e'
-      }
       steps {
-        sh 'echo \'//35.197.102.142:8081/repository/npm-repo/:_authToken=${NPM_TOKEN}\'>.npmrc'
+        sh 'echo \'//35.197.102.142:8081/repository/npm-repo/:_authToken=NpmToken.9021dc1c-5fd8-3b54-af24-39d2d4b58f5e\' > .npmrc'
         sh 'npm publish'
       }
     }
