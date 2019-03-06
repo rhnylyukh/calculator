@@ -36,19 +36,19 @@ pipeline {
       steps {
         sh '''node server.js &
 echo $! > .pidfile'''
-        input 'Finished using the web site? (Click "Proceed" to continue)'
+        input 'Please, check Your changes on the web http://35.197.102.142:3000 and if all ok Click "Proceed" to continue'
         sh 'kill $(cat .pidfile)'
       }
     }
     stage('deploy to prod') {
-       when {
-                branch 'master'
-            }
       agent {
         docker {
           image 'rhnylyukh/ansible-playbook'
         }
 
+      }
+      when {
+        branch 'master'
       }
       steps {
         sh 'ansible-playbook /ansible/playbooks/deploy_calculator.yml'
