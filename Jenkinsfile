@@ -4,6 +4,7 @@ pipeline {
       args '-p 3000:3000'
       image 'rhnylyukh/slave4'
     }
+
   }
   stages {
     stage('Build') {
@@ -32,7 +33,7 @@ pipeline {
         }
       }
     }
-    stage('Deliver to dev') {
+    stage('Deploy to dev') {
       steps {
         sh 'node server.js & echo $! > .pidfile'
         input 'Please, check Your changes on the web http://35.197.102.142:3000 and if all ok Click "Proceed" to continue'
