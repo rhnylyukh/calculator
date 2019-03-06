@@ -41,6 +41,9 @@ echo $! > .pidfile'''
       }
     }
     stage('deploy to prod') {
+       when {
+                branch 'master'
+            }
       agent {
         docker {
           image 'rhnylyukh/ansible-playbook'
@@ -48,7 +51,7 @@ echo $! > .pidfile'''
 
       }
       steps {
-        sh 'deploy_calculator.yml'
+        sh 'ansible-playbook /ansible/playbooks/deploy_calculator.yml'
       }
     }
   }
