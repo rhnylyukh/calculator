@@ -67,6 +67,9 @@ echo $! > .pidfile'''
       }
     }
     stage('prod') {
+      when {
+                branch 'master'  
+            }
       agent {
         docker {
           image 'rhnylyukh/ansible-playbook'
