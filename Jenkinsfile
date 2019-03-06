@@ -30,6 +30,12 @@ pipeline {
           }
         }
         stage('Static code analysis') {
+          agent {
+            docker {
+              image 'rhnylyukh/slave4'
+            }
+
+          }
           steps {
             sh '''sonar-scanner \\
   -Dsonar.projectKey=calc \\
