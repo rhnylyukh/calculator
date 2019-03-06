@@ -54,6 +54,6 @@ pipeline {
   environment {
     registry = 'rhnylyukh/calculator_build'
     registryCredential = 'dockerhub'
-    dockerImage = ''
+    dockerImage = 'rhnylyukh/slave4'
   }
 }
