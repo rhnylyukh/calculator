@@ -41,16 +41,15 @@ echo $! > .pidfile'''
       }
     }
     stage('deploy to prod') {
+       when {
+        branch 'master'
+      }
       agent {
         docker {
           image 'rhnylyukh/ansible-playbook'
         }
-
       }
-      when {
-        branch 'master'
-      }
-      steps {
+           steps {
         sh 'ansible-playbook /ansible/playbooks/deploy_calculator.yml'
       }
     }
