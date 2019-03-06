@@ -34,9 +34,6 @@ pipeline {
       }
     }
     stage('Deliver to dev') {
-      when {
-        branch 'dev1'
-      }
       steps {
         sh 'node server.js & echo $! > .pidfile'
         input 'Please, check Your changes on the web http://35.197.102.142:3000 and if all ok Click "Proceed" to continue'
