@@ -27,7 +27,7 @@ pipeline {
             sh '''sonar-scanner \\
   -Dsonar.projectKey=calc \\
   -Dsonar.sources=. \\
-  -Dsonar.host.url=http:35.197.102.142:9000 \\
+  -Dsonar.host.url=http:35.199.156.132:9000 \\
   -Dsonar.login=d52870b6c2a71840168f980566a852f8ffdb9e7c'''
           }
         }
