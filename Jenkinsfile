@@ -42,7 +42,7 @@ pipeline {
     }
     stage('publish') {
       steps {
-        sh 'echo \'//35.199.156.132:8081/repository/npm-artifactory/:_authToken=NpmToken.e03b3a70-c959-3905-bc83-62654c7471a6\' >> $HOME/.npmrc'
+        sh 'echo \'//35.199.156.132:8081/repository/npm-artifactory/:_authToken=NpmToken.aa970242-ed8d-3288-ab2d-62206ea96f42\' >> $HOME/.npmrc'
         sh 'npm publish'
       }
     }
