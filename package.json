@@ -33,6 +33,6 @@
     "supertest": "^3.1.0"
   },
   "publishConfig": {
-    "registry": "http://35.197.102.142:8081/repository/npm-repo/"
+    "registry": "http://35.199.156.132:8081/repository/npm-artifactory/"
   }
 }
